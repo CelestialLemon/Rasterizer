@@ -42,91 +42,15 @@ void Cube::InitializeTriangles()
     triangles.push_back(sf::Vector3i(3, 7, 6));
 }
 
-void Cube::ComputeScaleMatrix()
-{
-    m_scale <<
-        scale.x, 0, 0,
-        0, scale.y, 0,
-        0, 0, scale.z;
-}
 
-void Cube::ComputeRotationMatrices()
-{
-    float fac = PI / 180;
-    float xInRad = rot.x * fac;
-    float yInRad = rot.y * fac;
-    float zInRad = rot.z * fac;
-
-    //std::cout << "x : " << xInRad << " y : " << yInRad << " z : " << zInRad << "\n";
-    
-    m_rotX <<
-        1, 0, 0,
-        0, cos(xInRad), -sin(xInRad),
-        0, sin(xInRad), cos(xInRad);
-
-    m_rotY <<
-        cos(yInRad), 0, sin(yInRad),
-        0, 1, 0,
-        -sin(yInRad), 0, cos(yInRad);
-
-    m_rotZ <<
-        cos(zInRad), -sin(zInRad), 0,
-        sin(zInRad), cos(zInRad), 0,
-        0, 0, 1;
-
-}
-
-void Cube::ComputeTranslateMatrix()
-{
-    m_translate << origin.x, origin.y, origin.z;
-}
 
 Cube::Cube()
 {
-    // set orign to center of the world
-    
-    origin = Vector3f(0, 0, 0);
-    
-    //set scaling to default 1
-    
-    scale = Vector3f(1, 1, 1);
-
-    //set default rotation to 0 deg on all axes
-
-    rot = Vector3f(0, 0, 0);
-
-    //compute the transform matrices and intialize the points and tirnalges
-
-    ComputeScaleMatrix();
-    ComputeRotationMatrices();
-    ComputeTranslateMatrix();
     InitializePoints();
     InitializeTriangles();
 }
 
-void Cube::SetPosition(Vector3f _origin) 
-{ 
-    origin = _origin; 
 
-    //calculate new translate matrix when object changes position
-    ComputeTranslateMatrix(); 
-}
-
-void Cube::SetRotation(Vector3f _rot) 
-{ 
-    rot = _rot; 
-
-    //calculate new rotation matrix when object changes rotation
-    ComputeRotationMatrices(); 
-}
-
-void Cube::SetScale(Vector3f _scale) 
-{ 
-    scale = _scale; 
-
-    //calculate scaling matrix when object changes scale
-    ComputeScaleMatrix(); 
-}
 
 vector<sf::Vector3i> Cube::GetTriangles() 
 {

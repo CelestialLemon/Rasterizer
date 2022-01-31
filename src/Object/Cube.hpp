@@ -5,6 +5,8 @@
 #include <Eigen/Dense>
 #include <vector>
 
+#include "Object/Object.hpp"
+
 #define PI 3.14159265f
 
 using Eigen::Matrix;
@@ -41,35 +43,16 @@ using sf::Vector3f;
 */
 
 
-class Cube
+class Cube : public Object
 {
-    Vector3f origin;
-    Vector3f scale;
-    Vector3f rot;
     vector<Vector3f> points;
     vector<sf::Vector3i> triangles;
-
-    Matrix <float, 3, 3> m_scale;
-    Matrix <float, 3, 3> m_rotX, m_rotY, m_rotZ;
-    Matrix <float, 3, 1> m_translate;
-
     void InitializePoints();
     
     void InitializeTriangles();
 
-    void ComputeScaleMatrix();
-
-    void ComputeRotationMatrices();
-
-    void ComputeTranslateMatrix();
-
     public:
     Cube();
-
-    void SetPosition(Vector3f _origin);
-    void SetRotation(Vector3f _rot);
-    void SetScale(Vector3f _scale);
-
     vector<Vector3f> GetWorldPoints();
     vector<sf::Vector3i> GetTriangles();
 };

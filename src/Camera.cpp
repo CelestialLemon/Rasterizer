@@ -42,11 +42,12 @@ Vector3f Camera::WorldToCameraSpace(Vector3f& const p)
 
 Vector2f Camera::WorldToScreenPoint(Vector3f& const p)
 {
-    //if outside the viewing range (clip)
-    if(p.z < focalLength) return Vector2f(FLT_MAX, FLT_MAX);
 
     //cp is point p in camera space co-ordinates
     Vector3f cp = WorldToCameraSpace(p);
+
+    //if outside the viewing range (clip)
+    if(cp.z <= focalLength) return Vector2f(FLT_MAX, FLT_MAX);
 
     float x = (focalLength * cp.x) / cp.z;
     float y = (focalLength * cp.y) / cp.z;
