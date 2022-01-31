@@ -8,7 +8,7 @@
 unsigned int RES_X = 800;
 unsigned int RES_Y = 800;
 
-void HandleInput(Cube& cam)
+void HandleInput(Camera& cam)
 {
     float moveSpeed = 0.01f;
     float rotSpeed = 0.5f;
@@ -47,7 +47,7 @@ void HandleInput(Cube& cam)
 
 void RenderCube(sf::RenderWindow& window, Camera& cam, Cube& cube)
 {
-    HandleInput(cube);
+    HandleInput(cam);
     vector<Vector3f> points = cube.GetWorldPoints();
     vector<sf::Vector3i> triangles = cube.GetTriangles();
 
