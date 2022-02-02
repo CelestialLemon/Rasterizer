@@ -40,4 +40,7 @@ class Object
     Vector3f GetPosition();
     Vector3f GetRotation();
     Vector3f GetScale();
+
+    vector<Vector3f> GetWorldPoints();
+    vector<sf::Vector3i> GetTriangles();
 };

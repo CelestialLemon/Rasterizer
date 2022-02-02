@@ -45,14 +45,10 @@ using sf::Vector3f;
 
 class Cube : public Object
 {
-    vector<Vector3f> points;
-    vector<sf::Vector3i> triangles;
-    void InitializePoints();
     
+    void InitializePoints();
     void InitializeTriangles();
 
     public:
     Cube();
-    vector<Vector3f> GetWorldPoints();
-    vector<sf::Vector3i> GetTriangles();
 };

@@ -57,3 +57,8 @@ Vector2f Camera::WorldToScreenPoint(Vector3f& const p)
 
     return Vector2f(x, y);
 }
+
+bool Camera::ClipObject(Object& const obj)
+{
+    return true;
+}

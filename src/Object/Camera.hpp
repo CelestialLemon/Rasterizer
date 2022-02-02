@@ -23,4 +23,5 @@ class Camera : public Object
 
     Vector3f WorldToCameraSpace(Vector3f& const p);
     Vector2f WorldToScreenPoint(Vector3f& const p);
+    bool ClipObject(Object& const obj);
 };
