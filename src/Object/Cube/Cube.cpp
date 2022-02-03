@@ -1,4 +1,4 @@
-#include "Object/Cube.hpp"
+#include "Cube.hpp"
 
 void Cube::InitializePoints()
 {

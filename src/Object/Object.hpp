@@ -10,6 +10,8 @@ using Eigen::Matrix;
 using std::vector;
 using sf::Vector3f;
 
+float operator* (Vector3f& const a, Vector3f& const b);
+
 class Object
 {
     protected:
@@ -43,4 +45,5 @@ class Object
 
     vector<Vector3f> GetWorldPoints();
     vector<sf::Vector3i> GetTriangles();
+    float ContainingSphereRadius();
 };

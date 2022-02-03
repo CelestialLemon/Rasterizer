@@ -5,7 +5,7 @@
 #include <Eigen/Dense>
 #include <vector>
 
-#include "Object/Object.hpp"
+#include "../Object.hpp"
 
 #define PI 3.14159265f
 

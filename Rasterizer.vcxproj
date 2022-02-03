@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -151,14 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Camera.cpp" />
-    <ClCompile Include="src\Cube.cpp" />
+    <ClCompile Include="src\Object\Camera\Camera.cpp" />
+    <ClCompile Include="src\Object\Cube\Cube.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Object.cpp" />
+    <ClCompile Include="src\Object\Object.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Object\Camera.hpp" />
-    <ClInclude Include="src\Object\Cube.hpp" />
+    <ClInclude Include="src\Object\Camera\Camera.hpp" />
+    <ClInclude Include="src\Object\Cube\Cube.hpp" />
     <ClInclude Include="src\Object\Object.hpp" />
   </ItemGroup>
   <ItemGroup>

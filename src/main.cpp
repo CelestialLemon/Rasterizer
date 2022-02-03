@@ -2,11 +2,11 @@
 #include <iostream>
 #include <Eigen/Dense>
 
-#include "Object/Cube.hpp"
-#include "Object/Camera.hpp"
+#include "Object/Cube/Cube.hpp"
+#include "Object/Camera/Camera.hpp"
 
-unsigned int RES_X = 800;
-unsigned int RES_Y = 800;
+unsigned int RES_X = 1280;
+unsigned int RES_Y = 720;
 
 void HandleInput(Camera& cam)
 {
@@ -47,7 +47,13 @@ void HandleInput(Camera& cam)
 
 void RenderCube(sf::RenderWindow& window, Camera& cam, Cube& cube)
 {
+    string toClip = cam.ClipObject(cube);
+    if (toClip == "inside") printf("inside\n");
+    else if (toClip == "outside") printf("outside\n");
+    else if (toClip == "partial") printf("partial\n");
+    else printf("error\n");
     HandleInput(cam);
+    if (toClip == "outside") return;
     vector<Vector3f> points = cube.GetWorldPoints();
     vector<sf::Vector3i> triangles = cube.GetTriangles();
 
@@ -93,14 +99,15 @@ int main()
 
     Camera cam;
     cam.SetResolution(RES_X, RES_Y);
-    float fl = 2.75f;
+    float fl = 2.0f;
     cam.SetFocalLength(fl);
-    cam.SetPosition(Vector3f(0, 0, 1.5));
+    cam.SetSensorSize(0.9, 1.6);
+    cam.SetPosition(Vector3f(0, 0, 0));
 
     Cube cube;
     cube.SetPosition(Vector3f(0, 0, 15));
     cube.SetRotation(Vector3f(0, 0, 0));
-    cube.SetScale(Vector3f(2, 2, 2));
+    cube.SetScale(Vector3f(1, 1, 1));
 
     sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "Rasterizer", sf::Style::Default, settings);
     while (window.isOpen())

@@ -1,4 +1,9 @@
-#include "Object/Object.hpp"
+#include "Object.hpp"
+
+float operator* (Vector3f& const a, Vector3f& const b)
+{
+    return (a.x * b.x + a.y * b.y + a.z * b.z);
+}
  
 void Object::InitializePoints()
 {
@@ -159,4 +164,27 @@ vector<Vector3f> Object::GetWorldPoints()
     
 
     return worldPoints;
+}
+
+float distance(Vector3f& const a, Vector3f& const b)
+{
+    return sqrt(pow(b.x - a.x, 2) + pow(b.y - a.y, 2) + pow(b.z - a.z, 2));
+}
+
+float Object::ContainingSphereRadius()
+{
+    //returns radius of the sphere that completely contains the object
+    //center of sphere is the origin
+    float maxDistance = 0.0f;
+    Vector3f o = Vector3f(0, 0, 0);
+    for (auto point : points)
+    {
+        point.x *= scale.x;
+        point.y *= scale.y;
+        point.z *= scale.z;
+        float d = distance(o, point);
+        if (d > maxDistance) maxDistance = d;
+    }
+
+    return maxDistance;
 }
