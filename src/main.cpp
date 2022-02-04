@@ -8,22 +8,6 @@
 unsigned int RES_X = 1280;
 unsigned int RES_Y = 720;
 
-vector<sf::Color> colors = {
-    sf::Color::Red,
-    sf::Color::Blue,
-    sf::Color::Cyan,
-    sf::Color::Green,
-    sf::Color::Magenta,
-    sf::Color::Red,
-    sf::Color::Yellow,
-    sf::Color::Red,
-    sf::Color::Blue,
-    sf::Color::Cyan,
-    sf::Color::Green,
-    sf::Color::Magenta,
-    sf::Color::Red
-};
-
 void HandleInput(Camera& cam)
 {
     float moveSpeed = 0.01f;
@@ -64,83 +48,52 @@ void HandleInput(Camera& cam)
 void RenderCube(sf::RenderWindow& window, Camera& cam, Cube& cube)
 {
     string toClip = cam.ClipObject(cube);
+    if (toClip == "inside") printf("inside\n");
+    else if (toClip == "outside") printf("outside\n");
+    else if (toClip == "partial") printf("partial\n");
+    else printf("error\n");
     HandleInput(cam);
     if (toClip == "outside") return;
-    
     vector<Vector3f> points = cube.GetWorldPoints();
     vector<sf::Vector3i> triangles = cube.GetTriangles();
-    if (toClip == "partial")
+
+    for(auto triangle : triangles)
     {
-        int index = 0;
-        for (auto triangle : triangles)
-        {
-            /*Vector2f pointA = cam.WorldToScreenPoint(points[triangle.x]);
-            Vector2f pointB = cam.WorldToScreenPoint(points[triangle.y]);
-            Vector2f pointC = cam.WorldToScreenPoint(points[triangle.z]);*/
+        Vector2f pointA = cam.WorldToScreenPoint(points[triangle.x]);
+        Vector2f pointB = cam.WorldToScreenPoint(points[triangle.y]);
+        Vector2f pointC = cam.WorldToScreenPoint(points[triangle.z]);
 
-            Vector3f wPointA = points[triangle.x];
-            Vector3f wPointB = points[triangle.y];
-            Vector3f wPointC = points[triangle.z];
+        // sf::Vertex lineAB[] = {
+        //     sf::Vertex(pointA),
+        //     sf::Vertex(pointB)
+        // };
 
-            Triangle t = Triangle(wPointA, wPointB, wPointC);
+        // sf::Vertex lineBC[] = {
+        //     sf::Vertex(pointB),
+        //     sf::Vertex(pointC)
+        // };
 
-            auto clippedTriangles = cam.ClipTriangle(t);
-            //clippedTriangles are in already cameraspace so no need to convert from worldSpace to cameraSpace when drawing
-            for (auto clippedTriangle : clippedTriangles)
-            {
-                Vector2f pointA = cam.CameraSpaceToScreenPoint(clippedTriangle.a);
-                Vector2f pointB = cam.CameraSpaceToScreenPoint(clippedTriangle.b);
-                Vector2f pointC = cam.CameraSpaceToScreenPoint(clippedTriangle.c);
+        // sf::Vertex lineCA[] = {
+        //     sf::Vertex(pointC),
+        //     sf::Vertex(pointA)
+        // };
 
-                sf::VertexArray triangle(sf::Triangles, 3);
+        // window.draw(lineAB, 2, sf::Lines);
+        // window.draw(lineBC, 2, sf::Lines);
+        // window.draw(lineCA, 2, sf::Lines);
 
-                triangle[0] = pointA;
-                triangle[1] = pointB;
-                triangle[2] = pointC;
+        sf::VertexArray triangle(sf::Triangles, 3);
 
-                //sf::Color color = colors[rand() % colors.size()];
-                triangle[0].color = colors[index];
-                triangle[1].color = colors[index];
-                triangle[2].color = colors[index];
+        triangle[0].position = pointA;
+        triangle[1].position = pointB;
+        triangle[2].position = pointC;
 
-
-                window.draw(triangle);
-                index++;
-            }
-        }
+        window.draw(triangle);
     }
-    else if (toClip == "inside")
-    {
-        int index = 0;
-        for (auto triangle : triangles)
-        {
-           Vector2f pointA = cam.WorldToScreenPoint(points[triangle.x]);
-           Vector2f pointB = cam.WorldToScreenPoint(points[triangle.y]);
-           Vector2f pointC = cam.WorldToScreenPoint(points[triangle.z]);
-
-           sf::VertexArray triangle(sf::Triangles, 3);
-
-           triangle[0] = pointA;
-           triangle[1] = pointB;
-           triangle[2] = pointC;
-
-           sf::Color color = colors[rand() % colors.size()];
-           triangle[0].color = colors[index];
-           triangle[1].color = colors[index];
-           triangle[2].color = colors[index];
-
-
-           window.draw(triangle);
-           index++;
-        }
-    }
-
-    printf("\n\n");
 }
 
 int main()
 {
-    srand(time(0));
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
 
