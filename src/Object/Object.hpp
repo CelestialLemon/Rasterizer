@@ -18,7 +18,10 @@ class Object
     Vector3f origin;
     Vector3f scale;
     Vector3f rot;
+    //points represent the 3d postion of point in terms of model space
     vector<Vector3f> points;
+    //triangles have 3 componenets x y and z that represent the index of the point in
+    //points array that is a vertex of the triangle
     vector<sf::Vector3i> triangles;
 
     Matrix <float, 3, 3> m_scale;

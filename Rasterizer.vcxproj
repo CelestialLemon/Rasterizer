@@ -151,12 +151,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Draw\Draw.cpp" />
     <ClCompile Include="src\Object\Camera\Camera.cpp" />
     <ClCompile Include="src\Object\Cube\Cube.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Object\Object.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Draw\Draw.hpp" />
     <ClInclude Include="src\Object\Camera\Camera.hpp" />
     <ClInclude Include="src\Object\Cube\Cube.hpp" />
     <ClInclude Include="src\Object\Object.hpp" />

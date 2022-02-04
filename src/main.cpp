@@ -8,7 +8,22 @@
 unsigned int RES_X = 1280;
 unsigned int RES_Y = 720;
 
-void HandleInput(Camera& cam)
+vector<sf::Color> colors = {
+    sf::Color::Blue,
+    sf::Color::Cyan,
+    sf::Color::Green,
+    sf::Color::Magenta,
+    sf::Color::Red,
+    sf::Color::Yellow,
+    sf::Color::Blue,
+    sf::Color::Cyan,
+    sf::Color::Green,
+    sf::Color::Magenta,
+    sf::Color::Red,
+    sf::Color::Yellow
+};
+
+void HandleInput(Object& cam)
 {
     float moveSpeed = 0.01f;
     float rotSpeed = 0.5f;
@@ -45,57 +60,31 @@ void HandleInput(Camera& cam)
     cam.SetRotation(rot);
 }
 
-void RenderCube(sf::RenderWindow& window, Camera& cam, Cube& cube)
+void RenderCube(sf::RenderWindow& window,Object& cube, Camera& cam,
+        vector<vector<float>>& z_buffer)
 {
-    string toClip = cam.ClipObject(cube);
-    if (toClip == "inside") printf("inside\n");
-    else if (toClip == "outside") printf("outside\n");
-    else if (toClip == "partial") printf("partial\n");
-    else printf("error\n");
-    HandleInput(cam);
-    if (toClip == "outside") return;
-    vector<Vector3f> points = cube.GetWorldPoints();
-    vector<sf::Vector3i> triangles = cube.GetTriangles();
+    auto worldPoints = cube.GetWorldPoints();
+    auto triangles = cube.GetTriangles();
 
-    for(auto triangle : triangles)
+    for (sf::Vector3i triangle : triangles)
     {
-        Vector2f pointA = cam.WorldToScreenPoint(points[triangle.x]);
-        Vector2f pointB = cam.WorldToScreenPoint(points[triangle.y]);
-        Vector2f pointC = cam.WorldToScreenPoint(points[triangle.z]);
+        Vector3f wPointA = worldPoints[triangle.x];
+        Vector3f wPointB = worldPoints[triangle.y];
+        Vector3f wPointC = worldPoints[triangle.z];
 
-        // sf::Vertex lineAB[] = {
-        //     sf::Vertex(pointA),
-        //     sf::Vertex(pointB)
-        // };
 
-        // sf::Vertex lineBC[] = {
-        //     sf::Vertex(pointB),
-        //     sf::Vertex(pointC)
-        // };
-
-        // sf::Vertex lineCA[] = {
-        //     sf::Vertex(pointC),
-        //     sf::Vertex(pointA)
-        // };
-
-        // window.draw(lineAB, 2, sf::Lines);
-        // window.draw(lineBC, 2, sf::Lines);
-        // window.draw(lineCA, 2, sf::Lines);
-
-        sf::VertexArray triangle(sf::Triangles, 3);
-
-        triangle[0].position = pointA;
-        triangle[1].position = pointB;
-        triangle[2].position = pointC;
-
-        window.draw(triangle);
     }
+
 }
 
 int main()
 {
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
+
+    //2d array of colors i.e frame
+    vector<vector<float>> z_buffer(RES_Y, vector<float>(RES_X, FLT_MAX));
+
 
     Camera cam;
     cam.SetResolution(RES_X, RES_Y);
@@ -120,7 +109,7 @@ int main()
         }
 
         window.clear();
-        RenderCube(window, cam, cube);
+        RenderCube(window, cube, cam);
         window.display();
     }
 
