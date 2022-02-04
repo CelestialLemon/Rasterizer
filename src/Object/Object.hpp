@@ -4,6 +4,8 @@
 #include <Eigen/Dense>
 #include <vector>
 
+#include "Triangle/Triangle.hpp"
+
 #define PI 3.14159265f
 
 using Eigen::Matrix;

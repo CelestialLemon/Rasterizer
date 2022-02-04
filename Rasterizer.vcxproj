@@ -155,11 +155,13 @@
     <ClCompile Include="src\Object\Cube\Cube.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Object\Object.cpp" />
+    <ClCompile Include="src\Object\Triangle\Triangle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Object\Camera\Camera.hpp" />
     <ClInclude Include="src\Object\Cube\Cube.hpp" />
     <ClInclude Include="src\Object\Object.hpp" />
+    <ClInclude Include="src\Object\Triangle\Triangle.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

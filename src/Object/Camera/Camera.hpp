@@ -20,8 +20,12 @@ class Camera : public Object
     //clipping planes should be set if focalLength or sensor sizes change
     void SetClippingPlanes();
 
+    //clips a point against a single plane
+    string ClipPointAgainstPlane(Vector3f& const p, Vector3f& const plane, float d);
+    //clips triangle against a single plane
+    vector<Triangle> ClipTriangleAgainstPlane(Triangle& const t, Vector3f& const plane, float d);
     //clips object against a single plane
-    string ClipObjectAgainstPlane(Vector3f& const c, float r, Vector3f& const plane, float d);
+    string ClipSphereAgainstPlane(Vector3f& const c, float r, Vector3f& const plane, float d);
 
     float focalLength;
 
@@ -35,5 +39,7 @@ class Camera : public Object
 
     Vector3f WorldToCameraSpace(Vector3f& const p);
     Vector2f WorldToScreenPoint(Vector3f& const p);
+    Vector2f CameraSpaceToScreenPoint(Vector3f& const p);
+    vector<Triangle> ClipTriangle(Triangle& const t);
     string ClipObject(Object& const obj);
 };
