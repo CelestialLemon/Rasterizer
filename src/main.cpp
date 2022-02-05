@@ -4,6 +4,7 @@
 
 #include "Object/Cube/Cube.hpp"
 #include "Object/Camera/Camera.hpp"
+#include "Draw/Draw.hpp"
 
 unsigned int RES_X = 1280;
 unsigned int RES_Y = 720;
@@ -60,7 +61,7 @@ void HandleInput(Object& cam)
     cam.SetRotation(rot);
 }
 
-void RenderCube(sf::RenderWindow& window,Object& cube, Camera& cam,
+void RenderCube(sf::RenderWindow& window, Object& cube, Camera& cam,
         vector<vector<float>>& z_buffer)
 {
     auto worldPoints = cube.GetWorldPoints();
@@ -98,6 +99,15 @@ int main()
     cube.SetRotation(Vector3f(0, 0, 0));
     cube.SetScale(Vector3f(1, 1, 1));
 
+    sf::Vertex a;
+    a.position = sf::Vector2f(560, 160);
+    a.color = sf::Color(14, 143, 229);
+
+    sf::Vertex b;
+    b.position = sf::Vector2f(200, 150);
+    b.color = sf::Color(88, 236, 157);
+
+
     sf::RenderWindow window(sf::VideoMode(RES_X, RES_Y), "Rasterizer", sf::Style::Default, settings);
     while (window.isOpen())
     {
@@ -109,7 +119,8 @@ int main()
         }
 
         window.clear();
-        RenderCube(window, cube, cam);
+        //RenderCube(window, cube, cam, z_buffer);
+        DrawLine(a, b, window);
         window.display();
     }
 
